@@ -97,15 +97,7 @@ export const useGameStore = create<GameStore>((set, get) => ({
   },
 
   resetScores: () => {
-    set({
-      scores: {
-        X: 0,
-        O: 0,
-        draws: 0,
-      },
-      matchHistory: [],
-      ...initialState, // Reset game state
-    });
+    set(initialState);
   },
 
   setAnimating: (isAnimating: boolean) => {
