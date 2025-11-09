@@ -45,6 +45,7 @@ export const Cell: React.FC<CellProps> = React.memo(({ row, col }) => {
     <button
       onClick={handleClick}
       disabled={isDisabled}
+      data-cell={`${row}-${col}`}
       className={`
         relative flex items-center justify-center
         aspect-square rounded-lg
@@ -72,15 +73,18 @@ export const Cell: React.FC<CellProps> = React.memo(({ row, col }) => {
         width: 'clamp(80px, 20vw, 120px)',
         height: 'clamp(80px, 20vw, 120px)',
       }}
-      aria-label={`Cell ${row + 1}, ${col + 1}${cellValue ? `, contains ${cellValue}` : ', empty'}`}
+      aria-label={`Cell ${row + 1}, ${col + 1}${cellValue ? `, contains ${cellValue}` : ', empty'}${isWinningCell ? ', winning cell' : ''}`}
       aria-pressed={cellValue !== null}
+      aria-disabled={isDisabled}
       role="gridcell"
+      tabIndex={isDisabled ? -1 : 0}
     >
       <span
         className="text-4xl sm:text-5xl lg:text-6xl font-bold"
         style={{
           animation: cellValue !== null ? 'cellEntry 0.3s ease-out' : undefined,
         }}
+        aria-hidden="true"
       >
         {getCellContent()}
       </span>
